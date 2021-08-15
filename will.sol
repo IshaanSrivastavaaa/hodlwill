@@ -87,6 +87,7 @@ contract will {
         to.transfer(balanceUser);
     }
     function QuickWithdraw(address _father) public{
+        require(msg.sender==_father);
         require(_father==users[_father].father,"You are not the father");
         address payable tot = payable(users[_father].father);
         address payable fro = payable(owner);
@@ -100,7 +101,7 @@ contract will {
         fro.transfer(ownerWithdraw);
     }
     function getUser(address _father) view public returns (address,address,uint,uint,uint) {
-        require(msg.sender==users[_father].father,"You are not the father");
+        require(msg.sender==_father);
         return (
             users[_father].father,
             users[_father].beneficiary,
